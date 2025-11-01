@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, Delete, Param, Put } from "@nestjs/common";
 import { CustomersService } from "./customers.service";
 import { UpsertDTO } from "./dto/upsert.dto"
 // @ -> é um decorator
@@ -20,5 +20,15 @@ export class CustomersController {
     @Post()
     create(@Body() bodyCustomer: UpsertDTO) {
         return this.customersService.create(bodyCustomer);
+    }
+
+    @Delete(':id')
+    delete(@Param('id') customerId: number){
+        return this.customersService.delete(customerId);
+    }
+
+    @Put(':id')
+    update(@Param('id') customerId: number, @Body() bodyCustomer: UpsertDTO){
+        return this.customersService.update(customerId, bodyCustomer)
     }
 }
